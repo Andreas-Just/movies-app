@@ -1,4 +1,4 @@
-# xxx
+# Movies App
 
 ## Project setup
 ```
