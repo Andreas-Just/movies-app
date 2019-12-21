@@ -1,4 +1,4 @@
-# Movies app
+# Movies App
 ## ToDo list:
 
  - [**Preview** ](https://andreas-just.github.io/movies-app/dist/)
