@@ -1,7 +1,13 @@
 <template>
   <div v-if="popularMovies.length" class="col-12">
     <div class="row justify-content-around">
-      <Movie v-for="movie in popularMovies" :key="movie.id" :movie="movie" class="movies__card" />
+      <Movie
+        v-for="movie in popularMovies"
+        :key="movie.id"
+        :movie="movie"
+        :width="width"
+        :style="`max-width:${width.max}; min-width:${width.min}`"
+      />
     </div>
     <div class="row no-gutters">
       <div class="col-12">
@@ -39,6 +45,10 @@
         currentPage: 1,
         perPage: 20,
         totalPages: null,
+        width: {
+          max: '14rem',
+          min: '12rem'
+        },
       };
     },
 
@@ -66,10 +76,6 @@
 <style lang="scss">
   @import '../../assets/scss/variables.scss';
 
-  .movies__card {
-    max-width: 14em;
-    min-width: 12em;
-  }
   .movies__pagination {
     .page-item.active .page-link {
       background-color: $bg-black;

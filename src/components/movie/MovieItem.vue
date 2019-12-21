@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid movie-item d-flex flex-grow-1">
-    <div v-if="isDataLoaded">
+    <div v-if="isDataLoaded" class="d-flex flex-column flex-grow-1">
       <div class="row">
         <b-breadcrumb
           v-if="currentMovie.title" class="flex-grow-1 movie-item__breadcrumb"
@@ -59,7 +59,13 @@
         </div>
       </div>
       <div v-if="similarMovies.length" class="row justify-content-around mx-0">
-        <Movie v-for="movie in countFilms" :key="movie.id" :movie="movie" class="movie-card"/>
+        <Movie
+          v-for="movie in countFilms"
+          :key="movie.id"
+          :movie="movie"
+          :width="width"
+          :style="`max-width:${width.max}; min-width:${width.min}`"
+        />
       </div>
     </div>
     <div v-else class="d-flex justify-content-center align-items-center flex-grow-1">
@@ -79,7 +85,7 @@
       pageId: {
         type: [Number, String],
         required: true,
-      }
+      },
     },
     components: {
       Movie,
@@ -90,6 +96,10 @@
         currentMovie: null,
         similarMovies: [],
         isDataLoaded: false,
+        width: {
+          max: '8rem',
+          min: '6rem'
+        },
         breadcrumb: [
           {
             text: 'Movies',
@@ -263,9 +273,5 @@
     td:last-child {
       display: none;
     }
-  }
-  .movie-card {
-    max-width: 8rem;
-    min-width: 6rem;
   }
 </style>

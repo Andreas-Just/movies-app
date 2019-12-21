@@ -6,9 +6,27 @@
         <p>Film data provided by TMDb</p>
       </div>
       <div class="col-12 footer__logo-wrapper">
-        <logo-github-icon w="40px" h="40px" animate="shake" class="footer__logo-github" />
-        <logo-linkedin-icon w="40px" h="40px" animate="shake" class="footer__logo-linkedin" />
-        <logo-skype-icon w="40px" h="40px" animate="shake" class="footer__logo-skype" />
+        <a href="https://github.com/Andreas-Just" target="_blank">
+          <logo-github-icon
+            w="40px" h="40px"
+            animate="shake"
+            class="footer__logo-github"
+          />
+        </a>
+        <a href="https://www.linkedin.com/in/andreas-just/" target="_blank">
+          <logo-linkedin-icon
+            w="40px" h="40px"
+            animate="shake"
+            class="footer__logo-linkedin"
+          />
+        </a>
+        <a href="https://join.skype.com/invite/ndowTtpYxB1B" target="_blank">
+          <logo-skype-icon
+            w="40px" h="40px"
+            animate="shake"
+            class="footer__logo-skype"
+          />
+        </a>
       </div>
     </div>
   </div>

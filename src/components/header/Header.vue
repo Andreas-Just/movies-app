@@ -69,6 +69,7 @@
           })
       },
       chooseMovie(movie) {
+        this.query = '';
         this.movies = [];
         if (movie.id === this.$route.params.id) return;
         this.$router.push(`/movies/${movie.id}`);

@@ -11,7 +11,9 @@
       v-click-outside="hide" @click="toggle"
     >
       <b-button
-        :to="`/movies/${movie.id}`" class="movie__btn"
+        :to="`/movies/${movie.id}`"
+        :style="`${width.max === '14rem' ? 'font-size: 15px' : 'font-size: 10px'}`"
+        class="movie__btn"
         squared
         block
       >
@@ -41,6 +43,10 @@
     name: 'Movie',
     props: {
       movie: {
+        type: Object,
+        required: true
+      },
+      width: {
         type: Object,
         required: true
       }
@@ -83,7 +89,6 @@
   .movie__btn {
     text-transform: uppercase;
     transition: all 300ms linear;
-    font-size: 11px;
     font-weight: bold;
     color: $bg-black;
     background-color: $virid;
