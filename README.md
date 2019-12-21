@@ -1,4 +1,8 @@
 # Movies App
+## ToDo list:
+
+ - [**Preview** ](https://andreas-just.github.io/movies-app/dist/)
+ - [**PullRequest**](https://github.com/Andreas-Just/movies-app/pull/)
 
 ## Project setup
 ```

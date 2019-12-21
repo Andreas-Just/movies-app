@@ -1,8 +1,14 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import BootstrapVue from 'bootstrap-vue';
+import AllIcon from 'vue-ionicons/dist/ionicons.js'
 
-Vue.config.productionTip = false
+Vue.use(AllIcon);
+Vue.use(BootstrapVue);
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  router,
+  render: h => h(App)
+})
+  .$mount('#app');
