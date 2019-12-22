@@ -12,7 +12,7 @@
     >
       <b-button
         :to="`/movies/${movie.id}`"
-        :style="`${width.max === '14rem' ? 'font-size: 15px' : 'font-size: 10px'}`"
+        :style="`${width.max > 10 ? 'font-size: 14px' : 'font-size: 10px'}`"
         class="movie__btn"
         squared
         block

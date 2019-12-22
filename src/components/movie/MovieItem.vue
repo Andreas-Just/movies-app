@@ -64,7 +64,7 @@
           :key="movie.id"
           :movie="movie"
           :width="width"
-          :style="`max-width:${width.max}; min-width:${width.min}`"
+          :style="`max-width:${width.max + 'rem'}; min-width:${width.min  + 'rem'}`"
         />
       </div>
     </div>
