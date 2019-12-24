@@ -171,6 +171,11 @@
       handleResize() {
         this.contentWidth = document.documentElement.clientWidth;
       },
+      showFormattedDate(date) {
+        const options = {day: '2-digit', month: 'long', year: 'numeric'};
+        const dateTimeFormat = new Intl.DateTimeFormat('en-GB', options);
+        return dateTimeFormat.format(Date.parse(date));
+      },
       changeTypeData(data) {
         const arrData = [];
         for (let key in data) {
@@ -189,7 +194,7 @@
             case 'release_date':
               item.id = 1;
               item.name = 'release';
-              item.value = item.value.split('-').reverse().join('.');
+              item.value = this.showFormattedDate(item.value);
               tableData.push(item);
               break;
             case 'production_countries':

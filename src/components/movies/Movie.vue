@@ -29,7 +29,7 @@
     >
       <template v-slot:title>
         {{ movie.title }} <br>
-        <span>{{ movie.release_date.split('-').join('.') }}</span>
+        <span>{{ movie.release_date.split('-')[0] }}</span>
       </template>
       Movie rating
       <span v-if="rating" class="movie__stars-wrapper">

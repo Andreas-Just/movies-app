@@ -5,14 +5,13 @@
         <h2 class="movies__title m-sm-0 text-danger">Popular Movies</h2>
       </div>
       <div class="col-sm-7 col-lg-6 d-flex align-items-center pl-0 pr-2">
-        <p class="mb-0 movies__sort movies__sort--by">Sort&nbsp;by</p>
         <b-form-select
           v-model="selected"
           :options="options"
           :state="true"
           @change="sortBy"
         />
-        <p class="mb-0 movies__sort movies__sort--reverse">order</p>
+        <p class="mb-0 movies__sort">order</p>
         <button
           class="movies__sort-btn p-0"
           @click="sortOrder"
@@ -72,8 +71,9 @@
           max: 12,
           min: 11
         },
-        selected: 'popularity',
+        selected: null,
         options: [
+          { value: null, text: 'Please select a sort by...' },
           { value: 'popularity', text: 'Popularity' },
           { value: 'title', text: 'Title' },
           { value: 'release_date', text: 'Date' },
@@ -81,15 +81,17 @@
           { value: 'vote_count', text: 'Votes' },
         ],
         flag: true,
+        sing: 1,
         sortUp: {
+          date: (a, b) => Date.parse(a[this.selected]) > Date.parse(b[this.selected]) ? 1 : -1,
           number: (a, b) => a[this.selected] > b[this.selected] ? 1 : -1,
           string: (a, b) => a[this.selected].localeCompare(b[this.selected]),
         },
         sortDown: {
+          date: (a, b) => Date.parse(a[this.selected]) < Date.parse(b[this.selected]) ? 1 : -1,
           number: (a, b) => a[this.selected] < b[this.selected] ? 1 : -1,
           string: (a, b) => b[this.selected].localeCompare(a[this.selected]),
         }
-
       };
     },
     created() {
@@ -108,9 +110,16 @@
       onPageChange(page) {
         this.currentPage = page;
         this.getMoviesByPopular();
+        this.selected = null;
+        this.flag = true;
       },
       sortBy() {
-        const sortWith = typeof this.popularMovies[0][this.selected];
+        let sortWith;
+        if (this.selected === 'release_date') {
+          sortWith = 'date';
+        } else {
+          sortWith = typeof this.popularMovies[0][this.selected];
+        }
         if (this.flag) {
           this.popularMovies.sort(this.sortDown[sortWith]);
         } else {
@@ -120,7 +129,7 @@
       sortOrder() {
         this.flag = !this.flag;
         this.sortBy();
-      }
+      },
     }
   };
 </script>
@@ -140,13 +149,7 @@
     background-color: $gray-200;
     border: 1px solid $gray-400;
     border-radius: 0.3rem;
-
-    &--by {
-      width: 7rem;
-    }
-    &--reverse {
-      width: 5rem;
-    }
+    width: 5rem;
   }
   .movies__sort-btn {
     display: inline-flex;
