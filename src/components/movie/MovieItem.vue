@@ -158,35 +158,6 @@
       countStars() {
         return  Math.floor(this.currentMovie.vote_average);
       },
-    },
-    methods: {
-      getAllMovieInfo() {
-        axios.all([getMovieByID(this.pageId), getSimilarMovies(this.pageId)])
-          .then(axios.spread((movieById, similarMovies) => {
-            this.currentMovie = movieById.data;
-            this.similarMovies = similarMovies.data.results;
-            this.isDataLoaded = true;
-          }));
-      },
-      handleResize() {
-        this.contentWidth = document.documentElement.clientWidth;
-      },
-      showFormattedDate(date) {
-        const options = {day: '2-digit', month: 'long', year: 'numeric'};
-        const dateTimeFormat = new Intl.DateTimeFormat('en-GB', options);
-        return dateTimeFormat.format(Date.parse(date));
-      },
-      changeTypeData(data) {
-        const arrData = [];
-        for (let key in data) {
-          const temp = {};
-          temp.icon = '📹';
-          temp.name = key;
-          temp.value = data[key];
-          arrData.push(temp)
-        }
-        return arrData;
-      },
       sortDataTable() {
         const tableData = [];
         this.changeTypeData(this.currentMovie).forEach(item => {
@@ -248,6 +219,35 @@
         // if (!tableData.length) tempArr = [...Array(10).keys()].map(item => ({id: item + 1}));
         return tableData;
       }
+    },
+    methods: {
+      getAllMovieInfo() {
+        axios.all([getMovieByID(this.pageId), getSimilarMovies(this.pageId)])
+          .then(axios.spread((movieById, similarMovies) => {
+            this.currentMovie = movieById.data;
+            this.similarMovies = similarMovies.data.results;
+            this.isDataLoaded = true;
+          }));
+      },
+      handleResize() {
+        this.contentWidth = document.documentElement.clientWidth;
+      },
+      showFormattedDate(date) {
+        const options = {day: '2-digit', month: 'long', year: 'numeric'};
+        const dateTimeFormat = new Intl.DateTimeFormat('en-GB', options);
+        return dateTimeFormat.format(Date.parse(date));
+      },
+      changeTypeData(data) {
+        const arrData = [];
+        for (let key in data) {
+          const temp = {};
+          temp.icon = '📹';
+          temp.name = key;
+          temp.value = data[key];
+          arrData.push(temp)
+        }
+        return arrData;
+      },
     }
   };
 </script>
