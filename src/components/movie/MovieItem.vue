@@ -4,11 +4,11 @@
       <div class="row">
         <b-breadcrumb
           v-if="currentMovie.title" class="flex-grow-1 movie-item__breadcrumb"
-          :items="[{text: 'Movies',to: '/movies'},{text: currentMovie.title, active: true}]"
+          :items="[{text: 'Movies',to: '/movies'}, {text: currentMovie.title, active: true}]"
         />
         <b-breadcrumb
           v-else class="flex-grow-1 movie-item__breadcrumb"
-          :items="[{text: 'Movies',to: '/movies'},{text: currentMovie.original_title, active: true}]"
+          :items="[{text: 'Movies',to: '/movies'}, {text: currentMovie.original_title, active: true}]"
         />
       </div>
       <div class="row">
@@ -23,22 +23,51 @@
             <div class="col">
               <span v-if="currentMovie.vote_average" class="movie-item__stars-wrapper">
                 <span v-if="currentMovie.vote_average === countStars" class="movie-item__stars-wrapper">
-                  <md-star-icon v-for="(star, index) in countStars" :key="index" w="18.5px" h="18.5px" class="movie-item__stars-icon" />
-                  <md-star-outline-icon v-for="(star, index) in 10 - countStars" :key="index + countStars" w="18.5px" h="18.5px" class="movie-item__stars-icon" />
+                  <md-star-icon
+                    v-for="(star, index) in countStars"
+                    :key="index"
+                    w="18.5px" h="18.5px"
+                    class="movie-item__stars-icon"
+                  />
+                  <md-star-outline-icon
+                    v-for="(star, index) in 10 - countStars"
+                    :key="index + countStars"
+                    w="18.5px" h="18.5px"
+                    class="movie-item__stars-icon"
+                  />
                 </span>
                 <span v-else class="movie-item__stars-wrapper">
-                  <md-star-icon v-for="(star, index) in countStars" :key="index" w="18.5px" h="18.5px" class="movie-item__stars-icon" />
+                  <md-star-icon
+                    v-for="(star, index) in countStars"
+                    :key="index"
+                    w="18.5px" h="18.5px"
+                    class="movie-item__stars-icon"
+                  />
                   <md-star-half-icon w="18.5px" h="18.5px" class="movie-item__stars-icon" />
-                  <md-star-outline-icon v-for="(star, index) in 9 - countStars" :key="index + countStars" w="18.5px" h="18.5px" class="movie-item__stars-icon" />
+                  <md-star-outline-icon
+                    v-for="(star, index) in 9 - countStars"
+                    :key="index + countStars"
+                    w="18.5px" h="18.5px"
+                    class="movie-item__stars-icon"
+                  />
                 </span>
               </span>
               <span v-else class="movie-item__stars-wrapper">
-                <md-star-outline-icon v-for="(star, index) in 10 - countStars" :key="index" w="18.5px" h="18.5px" class="movie-item__stars-icon" />
+                <md-star-outline-icon
+                  v-for="(star, index) in 10 - countStars"
+                  :key="index"
+                  w="18.5px" h="18.5px"
+                  class="movie-item__stars-icon"
+                />
               </span>
             </div>
             <div
               class="movie-item__rating col d-flex justify-content-center justify-content-sm-end"
-              :style="currentMovie.vote_average < 5 ? 'color: red' : currentMovie.vote_average > 7 ? 'color: green' : null"
+              :style="currentMovie.vote_average < 5
+                ? 'color: red'
+                : currentMovie.vote_average > 7
+                ? 'color: green'
+                : null"
             >
               <h3>{{ currentMovie.vote_average }}</h3>
               <h6>{{ currentMovie.vote_count }}</h6>

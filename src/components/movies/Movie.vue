@@ -20,15 +20,39 @@
         View more
       </b-button>
     </b-card>
-    <b-popover :target="`${movie.id}`" triggers="click" placement="left" offset="15" :show.sync="opened">
-      <template v-slot:title>{{ movie.title }}</template>
+    <b-popover
+      :target="`${movie.id}`"
+      triggers="click"
+      placement="left"
+      offset="15"
+      :show.sync="opened"
+    >
+      <template v-slot:title>
+        {{ movie.title }} <br>
+        <span>{{ movie.release_date.split('-').join('.') }}</span>
+      </template>
       Movie rating
       <span v-if="rating" class="movie__stars-wrapper">
-        <md-star-icon v-for="(star, index) in countStars()" :key="index" w="16px" h="16px" class="movie__stars-icon" />
-        <md-star-outline-icon v-for="(star, index) in 5 - countStars()" :key="index + countStars()" w="16px" h="16px" class="movie__stars-icon" />
+        <md-star-icon
+          v-for="(star, index) in countStars()"
+          :key="index"
+          w="16px" h="16px"
+          class="movie__stars-icon"
+        />
+        <md-star-outline-icon
+          v-for="(star, index) in 5 - countStars()"
+          :key="index + countStars()"
+          w="16px" h="16px"
+          class="movie__stars-icon"
+        />
       </span>
       <span v-else-if="!rating" class="movie__stars-wrapper">
-        <md-star-outline-icon v-for="(star, index) in 5" :key="index" w="16px" h="16px" class="movie__stars-icon" />
+        <md-star-outline-icon
+          v-for="(star, index) in 5"
+          :key="index"
+          w="16px" h="16px"
+          class="movie__stars-icon"
+        />
       </span>
       <b>{{ rating }}</b>
     </b-popover>
@@ -112,6 +136,10 @@
     .popover-header {
       color: $gray-100;
       background-color: $bg-black;
+      span {
+        color: orange;
+        font-weight: normal;
+      }
     }
     .popover-body {
       display: inline-flex;

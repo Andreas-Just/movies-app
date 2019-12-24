@@ -1,17 +1,30 @@
 <template>
   <div v-if="popularMovies.length" class="col-12 movies">
-    <div class="row row-cols-1 row-cols-sm-2 justify-content-between align-items-center mt-3">
-      <div class="col-12">
+    <div class="row justify-content-between align-items-center mt-3">
+      <div class="col-sm-5 col-lg-6 no-gutters px-2">
         <h2 class="movies__title m-sm-0 text-danger">Popular Movies</h2>
       </div>
-      <div class="col-12 d-flex align-items-center">
-        <p class="mb-0 movies__select-text">Sort&nbsp;By</p>
-        <b-form-select v-model="selected" :options="options" :state="true" @change="sortBy"/>
+      <div class="col-sm-7 col-lg-6 d-flex align-items-center pl-0 pr-2">
+        <p class="mb-0 movies__sort movies__sort--by">Sort&nbsp;by</p>
+        <b-form-select
+          v-model="selected"
+          :options="options"
+          :state="true"
+          @change="sortBy"
+        />
+        <p class="mb-0 movies__sort movies__sort--reverse">order</p>
+        <button
+          class="movies__sort-btn p-0"
+          @click="sortOrder"
+        >
+          <md-arrow-dropdown-circle-icon v-if="flag" w="40px" h="40px" animate="beat" class="md-arrow-icon" />
+          <md-arrow-dropup-circle-icon v-else w="40px" h="40px" animate="beat" class="md-arrow-icon" />
+        </button>
       </div>
     </div>
     <div class="row justify-content-around">
       <Movie
-        v-for="movie in filteredMovies"
+        v-for="movie in popularMovies"
         :key="movie.id"
         :movie="movie"
         :width="width"
@@ -52,7 +65,6 @@
     data() {
       return {
         popularMovies: [],
-        filteredMovies: [],
         currentPage: 1,
         perPage: 20,
         totalPages: null,
@@ -68,14 +80,18 @@
           { value: 'vote_average', text: 'Rating' },
           { value: 'vote_count', text: 'Votes' },
         ],
-        sign: 1,
-        sort: {
-          number: (a, b) => a[this.selected] > b[this.selected] ? this.sign : -this.sign,
+        flag: true,
+        sortUp: {
+          number: (a, b) => a[this.selected] > b[this.selected] ? 1 : -1,
           string: (a, b) => a[this.selected].localeCompare(b[this.selected]),
+        },
+        sortDown: {
+          number: (a, b) => a[this.selected] < b[this.selected] ? 1 : -1,
+          string: (a, b) => b[this.selected].localeCompare(a[this.selected]),
         }
+
       };
     },
-
     created() {
       this.getMoviesByPopular();
     },
@@ -85,10 +101,9 @@
           .then(res => {
             const response = res.data;
             this.popularMovies = response.results;
-            this.filteredMovies = this.popularMovies;
             this.currentPage = response.page;
             this.totalPages = response.total_pages;
-          })
+          });
       },
       onPageChange(page) {
         this.currentPage = page;
@@ -96,7 +111,15 @@
       },
       sortBy() {
         const sortWith = typeof this.popularMovies[0][this.selected];
-        this.filteredMovies.sort(this.sort[sortWith]);
+        if (this.flag) {
+          this.popularMovies.sort(this.sortDown[sortWith]);
+        } else {
+          this.popularMovies.sort(this.sortUp[sortWith]);
+        }
+      },
+      sortOrder() {
+        this.flag = !this.flag;
+        this.sortBy();
       }
     }
   };
@@ -106,16 +129,40 @@
   @import '../../assets/scss/variables.scss';
 
   .movies__title {
+    padding-left: .5rem;
     font-size: 25px;
     text-align: left;
     font-weight: bold;
   }
-  .movies__select-text {
-    width: 7rem;
-    padding: 0.4rem 0;
+  .movies__sort {
+    padding: 0.55rem 0;
+    font-size: 13px;
     background-color: $gray-200;
     border: 1px solid $gray-400;
     border-radius: 0.3rem;
+
+    &--by {
+      width: 7rem;
+    }
+    &--reverse {
+      width: 5rem;
+    }
+  }
+  .movies__sort-btn {
+    display: inline-flex;
+    color: $virid;
+    background-color: transparent;
+    border: none;
+
+    .md-arrow-icon {
+      animation-play-state: paused;
+    }
+    &:hover .md-arrow-icon {
+      animation-play-state: running;
+    }
+    &:focus {
+      outline: none;
+    }
   }
   .movies__pagination {
     .page-item.active .page-link {
