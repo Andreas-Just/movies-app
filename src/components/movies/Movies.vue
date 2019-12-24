@@ -14,6 +14,7 @@
         <p class="mb-0 movies__sort">order</p>
         <button
           class="movies__sort-btn p-0"
+          :disabled="!selected"
           @click="sortOrder"
         >
           <md-arrow-dropdown-circle-icon v-if="flag" w="40px" h="40px" animate="beat" class="md-arrow-icon" />
@@ -156,6 +157,11 @@
     color: $virid;
     background-color: transparent;
     border: none;
+
+    &:disabled {
+      pointer-events: none;
+      color: lighten($gray-500, 10);
+    }
 
     .md-arrow-icon {
       animation-play-state: paused;
